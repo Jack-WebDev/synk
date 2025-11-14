@@ -230,9 +230,6 @@ importers:
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
-      drizzle-orm:
-        specifier: 'catalog:'
-        version: 0.44.7(@types/pg@8.15.6)(@vercel/postgres@0.10.0)(kysely@0.28.8)(pg@8.16.3)
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -243,6 +240,9 @@ importers:
       '@synk/config':
         specifier: workspace:*
         version: link:../config
+      drizzle-orm:
+        specifier: 'catalog:'
+        version: 0.44.7(@types/pg@8.15.6)(@vercel/postgres@0.10.0)(kysely@0.28.8)(pg@8.16.3)
       rimraf:
         specifier: 6.1.0
         version: 6.1.0
