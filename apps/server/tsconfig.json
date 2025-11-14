@@ -5,15 +5,7 @@
 		"outDir": "dist",
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/*"],
-			"@synk/api": ["../../packages/api/src/index.ts"],
-			"@synk/api/*": ["../../packages/api/src/*"],
-
-			"@synk/auth": ["../../packages/auth/src/index.ts"],
-			"@synk/auth/*": ["../../packages/auth/src/*"],
-
-			"@synk/db": ["../../packages/db/src/index.ts"],
-			"@synk/db/*": ["../../packages/db/src/*"]
+			"@/*": ["./src/*"]
 		},
 		"jsx": "react-jsx",
 		"ignoreDeprecations": "6.0"

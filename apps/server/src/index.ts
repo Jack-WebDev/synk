@@ -1,6 +1,5 @@
 import fastifyCors from "@fastify/cors";
-import { createContext } from "@synk/api/context";
-import { type AppRouter, appRouter } from "@synk/api/routers";
+import { type AppRouter, appRouter, createContext } from "@synk/api";
 import { auth } from "@synk/auth";
 import {
 	type FastifyTRPCPluginOptions,
