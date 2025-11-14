@@ -8,7 +8,7 @@
 		"lint": "biome check --write .",
 		"check-types": "tsc -b",
 		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
-		"dev": "tsx watch src/index.ts",
+		"dev": "tsx watch src/server.ts",
 		"start": "node dist/index.js"
 	},
 	"dependencies": {
@@ -16,6 +16,7 @@
 		"@synk/api": "workspace:*",
 		"@synk/auth": "workspace:*",
 		"@synk/db": "workspace:*",
+		"@synk/config": "workspace:*",
 		"@trpc/server": "catalog:",
 		"better-auth": "catalog:",
 		"dotenv": "catalog:",
@@ -25,6 +26,7 @@
 	"devDependencies": {
 		"@synk/config": "workspace:*",
 		"@types/node": "catalog:",
+		"@vercel/node": "5.5.6",
 		"rimraf": "6.1.0",
 		"tsdown": "catalog:",
 		"tsx": "^4.19.2",

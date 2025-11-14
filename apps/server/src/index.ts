@@ -1,4 +1,3 @@
-import "dotenv/config";
 import fastifyCors from "@fastify/cors";
 import { createContext } from "@synk/api/context";
 import { type AppRouter, appRouter } from "@synk/api/routers/index";
@@ -8,71 +7,105 @@ import {
 	fastifyTRPCPlugin,
 } from "@trpc/server/adapters/fastify";
 import Fastify from "fastify";
+import "dotenv/config";
 
-const baseCorsConfig = {
-	origin: process.env.CORS_ORIGIN || "",
-	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-	credentials: true,
-	maxAge: 86400,
-};
+const ALLOWED_ORIGINS = [
+	process.env.CORS_ORIGIN,
+	"http://localhost:3009",
+].filter(Boolean);
 
-const fastify = Fastify({
-	logger: true,
-});
+export async function createServer() {
+	const fastify = Fastify({
+		logger: process.env.NODE_ENV === "development",
+		trustProxy: true,
+	});
 
-fastify.register(fastifyCors, baseCorsConfig);
-
-fastify.route({
-	method: ["GET", "POST"],
-	url: "/api/auth/*",
-	async handler(request, reply) {
-		try {
-			const url = new URL(request.url, `http://${request.headers.host}`);
-			const headers = new Headers();
-			Object.entries(request.headers).forEach(([key, value]) => {
-				if (value) headers.append(key, value.toString());
-			});
-			const req = new Request(url.toString(), {
-				method: request.method,
-				headers,
-				body: request.body ? JSON.stringify(request.body) : undefined,
-			});
-			const response = await auth.handler(req);
-			reply.status(response.status);
-			response.headers.forEach((value, key) => {
-				reply.header(key, value);
-			});
-			reply.send(response.body ? await response.text() : null);
-		} catch (error) {
-			fastify.log.error({ err: error }, "Authentication Error:");
-			reply.status(500).send({
-				error: "Internal authentication error",
-				code: "AUTH_FAILURE",
-			});
-		}
-	},
-});
-
-fastify.register(fastifyTRPCPlugin, {
-	prefix: "/trpc",
-	trpcOptions: {
-		router: appRouter,
-		createContext,
-		onError({ path, error }) {
-			console.error(`Error in tRPC handler on path '${path}':`, error);
+	await fastify.register(fastifyCors, {
+		origin: (origin, cb) => {
+			if (!origin) return cb(null, true);
+			cb(null, ALLOWED_ORIGINS.includes(origin));
 		},
-	} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
-});
+		credentials: true,
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+		maxAge: 86400,
+	});
 
-fastify.get("/", async () => {
-	return "OK";
-});
+	fastify.get("/api/auth/test", async (request, reply) => {
+		reply.send({
+			message: "Auth route is working",
+			url: request.url,
+			method: request.method,
+		});
+	});
 
-fastify.listen({ port: 3009 }, (err) => {
-	if (err) {
-		fastify.log.error(err);
-		process.exit(1);
-	}
-	console.log("Server running on port 3000");
-});
+	fastify.get("/api/health", async () => {
+		return { ok: true };
+	});
+
+	fastify.route({
+		method: ["GET", "POST"],
+		url: "/api/auth/*",
+		async handler(request, reply) {
+			try {
+				const url = new URL(
+					request.url,
+					`${request.protocol}://${request.hostname}`,
+				);
+				request.log.info({ builtUrl: url.toString() }, "Auth URL base");
+
+				const headers = new Headers();
+				Object.entries(request.headers).forEach(([key, value]) => {
+					if (value) headers.append(key, value.toString());
+				});
+				const req = new Request(url.toString(), {
+					method: request.method,
+					headers,
+					body: request.body ? JSON.stringify(request.body) : undefined,
+				});
+				const response = await auth.handler(req);
+				reply.status(response.status);
+				response.headers.forEach((value, key) => {
+					reply.header(key, value);
+				});
+				reply.send(response.body ? await response.text() : null);
+			} catch (error) {
+				fastify.log.error({ err: error }, "Authentication Error:");
+				reply.status(500).send({
+					error: "Internal authentication error",
+					code: "AUTH_FAILURE",
+				});
+			}
+		},
+	});
+
+	await fastify.register(fastifyTRPCPlugin, {
+		prefix: "/api/trpc",
+		trpcOptions: {
+			router: appRouter,
+			createContext,
+			onError({ path, error }) {
+				console.error(`Error in tRPC handler on path '${path}':`, error);
+			},
+		} satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
+	});
+
+	return fastify;
+}
+
+export async function startServer() {
+	const app = await createServer();
+
+	return new Promise<typeof app>((resolve, reject) => {
+		app.listen(
+			{ port: Number(process.env.API_PORT), host: "0.0.0.0" },
+			(err) => {
+				if (err) {
+					reject(err);
+				} else {
+					console.log(`Server running on port ${process.env.API_PORT}`);
+					resolve(app);
+				}
+			},
+		);
+	});
+}

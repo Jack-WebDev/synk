@@ -1,5 +1,5 @@
 {
-	"extends": "@synk/config/tsconfig.base.json",
+	"extends": "../../packages/config/tsconfig.base.json",
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "dist",
@@ -7,6 +7,7 @@
 		"paths": {
 			"@/*": ["./src/*"]
 		},
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"ignoreDeprecations": "6.0"
 	}
 }

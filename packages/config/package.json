@@ -1,5 +1,28 @@
 {
 	"name": "@synk/config",
 	"version": "0.0.0",
-	"private": true
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsdown",
+		"lint": "biome check --write .",
+		"clean": "rimraf dist .turbo"
+	},
+	"devDependencies": {
+		"rimraf": "6.1.0",
+		"tsdown": "catalog:"
+	},
+	"dependencies": {
+		"dotenv": "catalog:"
+	}
 }

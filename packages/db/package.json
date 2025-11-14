@@ -35,6 +35,7 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
+		"@vercel/postgres": "0.10.0",
 		"dotenv": "catalog:",
 		"drizzle-orm": "catalog:",
 		"pg": "^8.14.1",
