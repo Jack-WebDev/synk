@@ -19,12 +19,10 @@
 	"devDependencies": {
 		"@synk/config": "workspace:*",
 		"rimraf": "6.1.0",
-		"tsdown": "catalog:",
-		"drizzle-orm": "catalog:"
+		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "^5",
-		"drizzle-orm": "catalog:"
+		"typescript": "^5"
 	},
 	"dependencies": {
 		"@synk/auth": "workspace:*",

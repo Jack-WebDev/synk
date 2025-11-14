@@ -1,6 +1,5 @@
-import { db } from "@synk/db";
+import { db, eq } from "@synk/db";
 import { todo } from "@synk/db/schema/todo";
-import { eq } from "drizzle-orm";
 import z from "zod";
 import { publicProcedure, router } from "../index";
 
