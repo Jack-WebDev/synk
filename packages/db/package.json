@@ -14,6 +14,7 @@
 	"scripts": {
 		"build": "tsdown",
 		"lint": "biome check --write .",
+		"clean": "rimraf dist .turbo",
 		"db:push": "drizzle-kit push",
 		"db:studio": "drizzle-kit studio",
 		"db:generate": "drizzle-kit generate",
@@ -24,18 +25,19 @@
 		"db:down": "docker compose down"
 	},
 	"devDependencies": {
-		"drizzle-kit": "^0.31.2",
+		"@synk/config": "workspace:*",
 		"@types/pg": "^8.11.11",
-		"tsdown": "catalog:",
-		"@synk/config": "workspace:*"
+		"drizzle-kit": "^0.31.2",
+		"rimraf": "6.1.0",
+		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
 	},
 	"dependencies": {
+		"dotenv": "catalog:",
 		"drizzle-orm": "catalog:",
 		"pg": "^8.14.1",
-		"dotenv": "catalog:",
 		"zod": "catalog:"
 	}
 }

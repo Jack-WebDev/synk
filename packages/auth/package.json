@@ -13,19 +13,21 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsdown",
-		"lint": "biome check --write ."
+		"lint": "biome check --write .",
+		"clean": "rimraf dist .turbo"
 	},
 	"devDependencies": {
-		"tsdown": "catalog:",
-		"@synk/config": "workspace:*"
+		"@synk/config": "workspace:*",
+		"rimraf": "6.1.0",
+		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
 	},
 	"dependencies": {
+		"@synk/db": "workspace:*",
 		"better-auth": "catalog:",
 		"dotenv": "catalog:",
-		"zod": "catalog:",
-		"@synk/db": "workspace:*"
+		"zod": "catalog:"
 	}
 }

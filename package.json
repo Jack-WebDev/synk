@@ -8,6 +8,7 @@
 	],
 	"scripts": {
 		"lint": "turbo lint",
+		"clean": "turbo clean",
 		"prepare": "husky",
 		"dev": "turbo dev",
 		"build": "turbo build",
