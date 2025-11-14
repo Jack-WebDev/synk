@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --port=3008",
-		"clean": "next clean",
+		"clean": "rimraf dist .turbo .next",
 		"build": "next build",
 		"lint": "biome check --write .",
 		"start": "next start"
