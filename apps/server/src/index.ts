@@ -1,15 +1,13 @@
 import "dotenv/config";
-import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
-
+import { createContext } from "@synk/api/context";
+import { type AppRouter, appRouter } from "@synk/api/routers/index";
+import { auth } from "@synk/auth";
 import {
-	fastifyTRPCPlugin,
 	type FastifyTRPCPluginOptions,
+	fastifyTRPCPlugin,
 } from "@trpc/server/adapters/fastify";
-import { createContext } from "@my-better-t-app/api/context";
-import { appRouter, type AppRouter } from "@my-better-t-app/api/routers/index";
-
-import { auth } from "@my-better-t-app/auth";
+import Fastify from "fastify";
 
 const baseCorsConfig = {
 	origin: process.env.CORS_ORIGIN || "",
@@ -42,7 +40,9 @@ fastify.route({
 			});
 			const response = await auth.handler(req);
 			reply.status(response.status);
-			response.headers.forEach((value, key) => reply.header(key, value));
+			response.headers.forEach((value, key) => {
+				reply.header(key, value);
+			});
 			reply.send(response.body ? await response.text() : null);
 		} catch (error) {
 			fastify.log.error({ err: error }, "Authentication Error:");
