@@ -1,7 +1,7 @@
 import { db, eq } from "@synk/db";
 import { todo } from "@synk/db/schema/todo";
 import z from "zod";
-import { publicProcedure, router } from "../index";
+import { publicProcedure, router } from "../index.js";
 
 export const todoRouter = router({
 	getAll: publicProcedure.query(async () => {

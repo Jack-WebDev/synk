@@ -1,5 +1,5 @@
-import { protectedProcedure, publicProcedure, router } from "../index";
-import { todoRouter } from "./todo";
+import { protectedProcedure, publicProcedure, router } from "../index.js";
+import { todoRouter } from "./todo.js";
 
 export const appRouter = router({
 	healthCheck: publicProcedure.query(() => {
