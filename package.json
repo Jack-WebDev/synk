@@ -8,8 +8,8 @@
 	],
 	"scripts": {
 		"lint": "turbo lint",
-		"clean": "turbo clean",
-		"prepare": "husky",
+		"clean": "turbo clean && rm -rf node_modules",
+		"prepare": "husky && pnpm -r build",
 		"dev": "turbo dev",
 		"build": "turbo build",
 		"check-types": "turbo check-types",
