@@ -1,4 +1,5 @@
 {
+	"buildCommand": "pnpm build",
 	"builds": [
 		{
 			"src": "apps/server/api/[...all].ts",
