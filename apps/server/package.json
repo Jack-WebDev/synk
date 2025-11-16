@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@fastify/cors": "^11.0.1",
-		"@synk/api": "^0.0.1",
+		"@synk/api": "workspace:*",
 		"@synk/auth": "workspace:*",
 		"@synk/db": "workspace:*",
 		"@synk/config": "workspace:*",

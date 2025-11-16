@@ -1,0 +1,12 @@
+{
+	"builds": [
+		{
+			"src": "apps/server/api/[...all].ts",
+			"use": "@vercel/node",
+			"config": {
+				"includeFiles": "apps/server/src/**"
+			}
+		}
+	],
+	"routes": [{ "src": "/api/(.*)", "dest": "apps/server/api/[...all].ts" }]
+}
