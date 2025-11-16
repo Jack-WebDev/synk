@@ -4,36 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@trpc/client':
-      specifier: ^11.5.0
-      version: 11.7.1
-    '@trpc/server':
-      specifier: ^11.5.0
-      version: 11.7.1
-    '@types/node':
-      specifier: ^22.13.11
-      version: 22.19.0
-    better-auth:
-      specifier: ^1.3.28
-      version: 1.3.34
-    dotenv:
-      specifier: 17.2.3
-      version: 17.2.3
-    drizzle-orm:
-      specifier: ^0.44.2
-      version: 0.44.7
-    tsdown:
-      specifier: ^0.15.5
-      version: 0.15.12
-    typescript:
-      specifier: ^5.8.2
-      version: 5.9.3
-    zod:
-      specifier: ^4.1.11
-      version: 4.1.12
-
 importers:
 
   .:
@@ -72,6 +42,9 @@ importers:
       tsdown:
         specifier: ^0.15.5
         version: 0.15.12(typescript@5.9.3)
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
       turbo:
         specifier: ^2.5.4
         version: 2.6.1
@@ -302,6 +275,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@neondatabase/serverless':
+        specifier: 1.0.2
+        version: 1.0.2
       '@vercel/postgres':
         specifier: 0.10.0
         version: 0.10.0
@@ -310,7 +286,7 @@ importers:
         version: 17.2.3
       drizzle-orm:
         specifier: 'catalog:'
-        version: 0.44.7(@types/pg@8.15.6)(@vercel/postgres@0.10.0)(kysely@0.28.8)(pg@8.16.3)
+        version: 0.44.7(@neondatabase/serverless@1.0.2)(@types/pg@8.15.6)(@vercel/postgres@0.10.0)(kysely@0.28.8)(pg@8.16.3)
       pg:
         specifier: ^8.14.1
         version: 8.16.3
@@ -996,6 +972,10 @@ packages:
 
   '@neondatabase/serverless@0.9.5':
     resolution: {integrity: sha512-siFas6gItqv6wD/pZnvdu34wEqgG3nSE6zWZdq5j2DEsa+VvX8i/5HXJOo06qrw5axPXn+lGCxeR+NLaSPIXug==}
+
+  '@neondatabase/serverless@1.0.2':
+    resolution: {integrity: sha512-I5sbpSIAHiB+b6UttofhrN/UJXII+4tZPAq1qugzwCwLIL8EZLV7F/JyHUrEIiGgQpEXzpnjlJ+zwcEhheGvCw==}
+    engines: {node: '>=19.0.0'}
 
   '@next/env@16.0.0':
     resolution: {integrity: sha512-s5j2iFGp38QsG1LWRQaE2iUY3h1jc014/melHFfLdrsMJPqxqDQwWNwyQTcNoUSGZlCVZuM7t7JDMmSyRilsnA==}
@@ -4221,6 +4201,11 @@ snapshots:
     dependencies:
       '@types/pg': 8.11.6
 
+  '@neondatabase/serverless@1.0.2':
+    dependencies:
+      '@types/node': 22.19.0
+      '@types/pg': 8.15.6
+
   '@next/env@16.0.0': {}
 
   '@next/swc-darwin-arm64@16.0.0':
@@ -5667,8 +5652,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.7(@types/pg@8.15.6)(@vercel/postgres@0.10.0)(kysely@0.28.8)(pg@8.16.3):
+  drizzle-orm@0.44.7(@neondatabase/serverless@1.0.2)(@types/pg@8.15.6)(@vercel/postgres@0.10.0)(kysely@0.28.8)(pg@8.16.3):
     optionalDependencies:
+      '@neondatabase/serverless': 1.0.2
       '@types/pg': 8.15.6
       '@vercel/postgres': 0.10.0
       kysely: 0.28.8
