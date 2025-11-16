@@ -5,7 +5,6 @@
 	"scripts": {
 		"dev": "next dev --port=3009",
 		"clean": "rimraf dist .turbo .next",
-		"build": "next build",
 		"lint": "biome check --write .",
 		"start": "next start"
 	},
