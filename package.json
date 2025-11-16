@@ -27,7 +27,11 @@
 	},
 	"dependencies": {
 		"dotenv": "^17.2.2",
-		"zod": "^4.1.11"
+		"zod": "^4.1.11",
+		"@synk/api": "workspace:*",
+		"@synk/auth": "workspace:*",
+		"@synk/db": "workspace:*",
+		"@synk/config": "workspace:*"
 	},
 	"devDependencies": {
 		"turbo": "^2.5.4",

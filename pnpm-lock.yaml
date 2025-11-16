@@ -38,6 +38,18 @@ importers:
 
   .:
     dependencies:
+      '@synk/api':
+        specifier: workspace:*
+        version: link:packages/api
+      '@synk/auth':
+        specifier: workspace:*
+        version: link:packages/auth
+      '@synk/config':
+        specifier: workspace:*
+        version: link:packages/config
+      '@synk/db':
+        specifier: workspace:*
+        version: link:packages/db
       dotenv:
         specifier: ^17.2.2
         version: 17.2.3
